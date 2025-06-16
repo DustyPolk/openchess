@@ -2,6 +2,7 @@ local menu = {}
 
 local menuButtons = {}
 local hoveredButton = nil
+local fonts = {}
 
 function menu.updateButtons(gameStarted)
     menuButtons = {}
@@ -57,6 +58,12 @@ function menu.updateButtons(gameStarted)
 end
 
 function menu.draw(bgImage, pieceImages, gameStarted)
+    if not fonts.title then
+        fonts.title = love.graphics.newFont(60)
+        fonts.button = love.graphics.newFont(20)
+        fonts.status = love.graphics.newFont(14)
+    end
+    
     love.graphics.setColor(1, 1, 1)
     love.graphics.draw(bgImage, 0, 0, 0, 4.3125, 4.3125)
     
@@ -64,10 +71,10 @@ function menu.draw(bgImage, pieceImages, gameStarted)
     love.graphics.rectangle("fill", 0, 0, 690, 690)
     
     love.graphics.setColor(1, 1, 1)
-    love.graphics.setFont(love.graphics.newFont(60))
-    love.graphics.print("CHESS", 345 - love.graphics.getFont():getWidth("CHESS") / 2, 100)
+    love.graphics.setFont(fonts.title)
+    love.graphics.print("CHESS", 345 - fonts.title:getWidth("CHESS") / 2, 100)
     
-    love.graphics.setFont(love.graphics.newFont(20))
+    love.graphics.setFont(fonts.button)
     
     local decorY = 180
     love.graphics.draw(pieceImages.white.king, 200, decorY, 0, 3, 3)
@@ -77,9 +84,9 @@ function menu.draw(bgImage, pieceImages, gameStarted)
     
     if gameStarted then
         love.graphics.setColor(0.7, 0.7, 0.7)
-        love.graphics.setFont(love.graphics.newFont(14))
-        love.graphics.print("Game in progress", 345 - love.graphics.getFont():getWidth("Game in progress") / 2, 240)
-        love.graphics.setFont(love.graphics.newFont(20))
+        love.graphics.setFont(fonts.status)
+        love.graphics.print("Game in progress", 345 - fonts.status:getWidth("Game in progress") / 2, 240)
+        love.graphics.setFont(fonts.button)
     end
     
     for _, button in ipairs(menuButtons) do

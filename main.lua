@@ -44,6 +44,12 @@ function love.mousepressed(x, y, button)
     if gameState == "menu" then
         local action = menu.handleClick(x, y, button)
         if action == "playing" then
+            if not gameStarted or not next(pieces) then
+                pieces = board.initialize()
+                currentPlayer = "white"
+                selectedPiece = nil
+                gameStarted = true
+            end
             gameState = "playing"
         elseif action == "new_game" then
             gameState = "playing"

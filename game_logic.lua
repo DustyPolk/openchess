@@ -22,6 +22,8 @@ function game_logic.handleClick(x, y, button, pieces, selectedPiece, currentPlay
                     selectedPiece = piece
                 end
             end
+        else
+            selectedPiece = nil
         end
     end
     
@@ -29,6 +31,8 @@ function game_logic.handleClick(x, y, button, pieces, selectedPiece, currentPlay
 end
 
 function game_logic.movePiece(pieces, piece, newRow, newCol)
+    if not piece then return end
+    
     pieces[piece.row][piece.col] = nil
     pieces[newRow][newCol] = piece
     piece.row = newRow
