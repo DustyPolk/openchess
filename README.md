@@ -85,3 +85,9 @@ The game uses pixel art assets for:
 - Chess board with alternating squares
 - Background texture
 - All graphics use nearest-neighbor filtering for crisp pixel art
+
+## License
+
+This project is licensed under the GNU General Public License v3.0 - see the [LICENSE](LICENSE) file for details.
+
+This means you can use, modify, and distribute this software freely, but any derivative works must also be open source under the GPL-3.0 license.
