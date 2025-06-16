@@ -10,6 +10,10 @@ function chess_rules.isPathClear(pieces, fromRow, fromCol, toRow, toCol)
     local currentCol = fromCol + colStep
     
     while currentRow ~= toRow or currentCol ~= toCol do
+        if currentRow < 1 or currentRow > config.BOARD_SIZE or 
+           currentCol < 1 or currentCol > config.BOARD_SIZE then
+            return false
+        end
         if pieces[currentRow][currentCol] then
             return false
         end
@@ -40,8 +44,11 @@ function chess_rules.isValidMove(pieces, piece, newRow, newCol)
         if colDiff == 0 and not targetPiece then
             if rowDiff == direction then
                 return true
-            elseif piece.row == startRow and rowDiff == 2 * direction and not pieces[piece.row + direction][piece.col] then
-                return true
+            elseif piece.row == startRow and rowDiff == 2 * direction then
+                local checkRow = piece.row + direction
+                if checkRow >= 1 and checkRow <= config.BOARD_SIZE and not pieces[checkRow][piece.col] then
+                    return true
+                end
             end
         elseif math.abs(colDiff) == 1 and rowDiff == direction and targetPiece then
             return true
@@ -109,6 +116,8 @@ function chess_rules.isKingInCheck(pieces, color)
 end
 
 function chess_rules.wouldMoveLeaveKingInCheck(pieces, piece, newRow, newCol)
+    if not piece then return true end
+    
     local originalRow = piece.row
     local originalCol = piece.col
     local capturedPiece = pieces[newRow][newCol]
@@ -130,6 +139,8 @@ end
 
 function chess_rules.getValidMoves(pieces, piece)
     local validMoves = {}
+    
+    if not piece then return validMoves end
     
     for row = 1, config.BOARD_SIZE do
         for col = 1, config.BOARD_SIZE do

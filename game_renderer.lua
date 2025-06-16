@@ -26,7 +26,7 @@ function game_renderer.drawPieces(pieces, pieceImages)
 end
 
 function game_renderer.drawSelectedPiece(selectedPiece, pieces)
-    if selectedPiece then
+    if selectedPiece and selectedPiece.row and selectedPiece.col then
         love.graphics.setColor(0, 1, 0, 0.5)
         local x = config.BOARD_OFFSET_X + (selectedPiece.col - 1) * config.TILE_SIZE
         local y = config.BOARD_OFFSET_Y + (selectedPiece.row - 1) * config.TILE_SIZE
