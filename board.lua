@@ -24,7 +24,8 @@ function board.initialize()
                     type = layout[row][col],
                     color = color,
                     row = row,
-                    col = col
+                    col = col,
+                    has_moved = false -- Initialize has_moved flag
                 }
             end
         end
